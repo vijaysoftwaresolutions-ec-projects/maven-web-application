@@ -1,0 +1,50 @@
+pipeline{
+
+agent any;
+
+tools{
+maven 'Maven3.6.3'
+}
+
+triggers{
+pollSCM('* * * * *')
+}
+
+stages{
+
+  stage('checkoutcode'){
+    steps{
+   git branch: 'development', credentialsId: '7c8519fc-76d6-48fd-9726-245714d9ccd9', url: 
+'https://github.com/vijaysoftwaresolutions-ec-projects/maven-web-application.git'
+     }
+   }
+  stage('Build'){
+  steps{
+  sh "mvn clean package"
+   }
+  }
+  /*
+  stage('ExecuteSonarqubeReport'){
+  steps{
+  sh "mvn clean sonar:sonar"
+   }
+  }
+
+stage('UploadArtifactintoNexus'){
+  steps{
+  sh "mvn clean deploy"
+   }
+  }
+
+stage('DeployAppintoTomcatServer'){
+  steps{
+  sshagent(['7f21be7d-f0cc-4712-abda-54baac704e95']) {
+ sh "scp target/maven-web-application.war ec2-user@65.1.134.143:/opt/apache-tomcat-9.0.50/webapps/"
+   }
+   }
+   }
+   
+   */
+}//stages Closing
+
+}//Pipeline cloing
